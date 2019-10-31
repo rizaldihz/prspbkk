@@ -17,8 +17,9 @@ class DashboardController extends Controller
     {
     	$user = new Users();
     	$request = new Request();
-    	$user->setName($request->getPost('em'));
-    	$user->setPw($request->getPost('pw'));
+        $user->id = $request->getPost('em');
+    	$user->name = $request->getPost('em');
+    	$user->pass = $request->getPost('pw');
     	$user->save();
         $this->view->pick('dashboard/index');
     }
