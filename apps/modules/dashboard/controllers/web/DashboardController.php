@@ -24,4 +24,28 @@ class DashboardController extends Controller
         $this->view->pick('dashboard/index');
     }
 
+    public function loginAction()
+    {
+        $request = new Request();
+        $username = $request->getPost('em');
+        $user = Users::findFirst("email='$username'");
+        $pass = $request->getPost('pw');
+        // var_dump($pass);die();
+        if($user)
+        {
+            if($user->pass == $pass){
+                $this->session->set('auth',['username' => $user->username]);
+            }
+            else{
+                $error = "Password anda salah";
+                $this->view->error = $error;
+            }
+        }
+        else{
+            $error = "Email tidak ditemukan";
+            $this->view->error = $error;
+        }
+        $this->view->pick('dashboard/index');
+    }
+
 }
