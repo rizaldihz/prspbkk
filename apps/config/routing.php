@@ -14,19 +14,19 @@ $di['router'] = function() use ($defaultModule, $modules, $di, $config) {
 	    'controller' => isset($modules[$defaultModule]['defaultController']) ? $modules[$defaultModule]['defaultController'] : 'index',
 	    'action' => isset($modules[$defaultModule]['defaultAction']) ? $modules[$defaultModule]['defaultAction'] : 'index'
 	]);
-	
-	$router->addGet('/ersad', [
+
+	$router->addGet('/register', [
 	    'namespace' => 'Phalcon\Init\Dashboard\Controllers\Web',
 		'module' => 'dashboard',
 	    'controller' => 'Dashboard',
-	    'action' => 'index'
+	    'action' => 'register'
 	]);
 
-	$router->addPost('/reg', [
+	$router->addPost('/post_register', [
 	    'namespace' => 'Phalcon\Init\Dashboard\Controllers\Web',
 		'module' => 'dashboard',
 	    'controller' => 'Dashboard',
-	    'action' => 'reg'
+	    'action' => 'store'
 	]);
 
 	$router->addPost('/login', [

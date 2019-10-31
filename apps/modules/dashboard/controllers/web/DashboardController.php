@@ -10,18 +10,27 @@ class DashboardController extends Controller
 {
     public function indexAction()
     {
+        $users = Users::find();
+
+        $this->view->users = $users;
+
         $this->view->pick('dashboard/index');
     }
 
-    public function regAction()
+    public function registerAction()
     {
-    	$user = new Users();
+        $this->view->pick('dashboard/register');
+    }
+
+    public function storeAction()
+    {
+        $user = new Users();
     	$request = new Request();
-        $user->id = $request->getPost('em');
-    	$user->name = $request->getPost('em');
-    	$user->pass = $request->getPost('pw');
+        $user->username = $request->getPost('username');
+        $user->email = $request->getPost('email');
+    	$user->password = $request->getPost('password');
     	$user->save();
-        $this->view->pick('dashboard/index');
+        $this->response->redirect('/');
     }
 
     public function loginAction()
