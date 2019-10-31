@@ -7,6 +7,24 @@
 <body>
     <div class="container mt-5">
         <div class="text-center">
+        	<h4>Hello World! from Dashboard Module</h4>
+		    {% if session.get('auth') != null %}
+		    <p>Selamat Datang, <span class="h4">{{ session.get('auth')['username'] }}</span></p>
+		    <form action="{{url('/logout')}}" method="post">
+		    	<button type="submit" class="btn btn-primary">Logout</button>
+		    </form>
+		    {% endif %}
+		    {% if error is defined %}
+		    <p style="color: red">{{error}}</p>
+		    {% endif %}
+		    {% if session.has('auth') == false %}
+		    <form action="{{url('/login')}}" method="post">
+		    	<input type="email" name="em">
+		    	<input type="password" name="pw">
+		    	<input type="submit">
+		    </form>
+		    {% endif %}
+		    <br>
             <div class="h2">Dashboard</div>
             <table class="table">
                 <thead>
@@ -28,20 +46,6 @@
             </table>
         </div>
     </div>
-    <h1>Hello World! from Dashboard Module</h1>
-    {% if session.get('auth') != null %}
-    <p>Selamat Datang, <h4>{{ session.get('auth')['username'] }}</h4> </p>
-    {% endif %}
-    {% if error is defined %}
-    <p style="color: red">{{error}}</p>
-    {% endif %}
-    {% if session.has('auth') == false %}
-    <form action="{{url('/login')}}" method="post">
-    	<input type="email" name="em">
-    	<input type="password" name="pw">
-    	<input type="submit">
-    </form>
-    {% endif %}
 </body>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

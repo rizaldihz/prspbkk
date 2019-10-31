@@ -36,6 +36,13 @@ $di['router'] = function() use ($defaultModule, $modules, $di, $config) {
 	    'action' => 'login'
 	]);
 
+	$router->addPost('/logout', [
+	    'namespace' => 'Phalcon\Init\Dashboard\Controllers\Web',
+		'module' => 'dashboard',
+	    'controller' => 'Dashboard',
+	    'action' => 'logout'
+	]);
+
 	/**
 	 * Not Found Routing
 	 */

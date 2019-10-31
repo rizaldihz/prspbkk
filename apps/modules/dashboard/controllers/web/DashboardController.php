@@ -39,11 +39,14 @@ class DashboardController extends Controller
         $username = $request->getPost('em');
         $user = Users::findFirst("email='$username'");
         $pass = $request->getPost('pw');
+        $users = Users::find();
+        $this->view->users = $users;
         // var_dump($pass);die();
         if($user)
         {
-            if($user->pass == $pass){
+            if($user->password == $pass){
                 $this->session->set('auth',['username' => $user->username]);
+                $this->response->redirect('/');
             }
             else{
                 $error = "Password anda salah";
@@ -55,6 +58,12 @@ class DashboardController extends Controller
             $this->view->error = $error;
         }
         $this->view->pick('dashboard/index');
+    }
+
+    public function logoutAction()
+    {
+        $this->session->destroy();
+        $this->response->redirect('/');
     }
 
 }
