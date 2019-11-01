@@ -16,6 +16,7 @@ class Module implements ModuleDefinitionInterface
             'Phalcon\Init\Dashboard\Controllers\Web' => __DIR__ . '/controllers/web',
             'Phalcon\Init\Dashboard\Controllers\Api' => __DIR__ . '/controllers/api',
             'Phalcon\Init\Dashboard\Models' => __DIR__ . '/models',
+            'Phalcon\Init\Dashboard\Middlewares' => __DIR__ . '/middleware',
         ]);
 
         $loader->register();
