@@ -3,11 +3,20 @@
 namespace Phalcon\Init\Dashboard\Controllers\Web;
 
 use Phalcon\Mvc\Controller;
+use Phalcon\Mvc\Dispatcher;
 use Phalcon\Init\Dashboard\Models\Users;
 use Phalcon\Http\Request;
+use Phalcon\Events\Manager as EventsManager;
 
 class DashboardController extends Controller
 {
+
+    public function beforeExecuteRoute(Dispatcher $dis)
+    {
+        // var_dump();die();
+        if(!$this->session->has('auth') && $dis->getactionName()!='index') $this->response->redirect('/');
+    }
+
     public function indexAction()
     {
         $users = Users::find();
