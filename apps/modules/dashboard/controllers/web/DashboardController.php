@@ -28,7 +28,7 @@ class DashboardController extends Controller
     	$request = new Request();
         $user->username = $request->getPost('username');
         $user->email = $request->getPost('email');
-    	$user->password = $request->getPost('password');
+        $user->password = $request->getPost('password');
     	$user->save();
         $this->response->redirect('/');
     }
@@ -46,24 +46,23 @@ class DashboardController extends Controller
         {
             if($user->password == $pass){
                 $this->session->set('auth',['username' => $user->username]);
-                $this->response->redirect('/');
+                $this->flashSession->success('Anda telah login');
             }
             else{
-                $error = "Password anda salah";
-                $this->view->error = $error;
+                $this->flashSession->error('Password anda salah');
             }
         }
         else{
-            $error = "Email tidak ditemukan";
-            $this->view->error = $error;
+            $this->flashSession->error('Email tidak ditemukan');
         }
-        $this->view->pick('dashboard/index');
+        $this->response->redirect('/');
     }
 
     public function logoutAction()
     {
         $this->session->destroy();
+        // $this->flashSession->success('Anda telah logout');
         $this->response->redirect('/');
     }
 
-}
+}   

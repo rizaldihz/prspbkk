@@ -7,15 +7,13 @@
 <body>
     <div class="container mt-5">
         <div class="text-center">
-        	<h4>Hello World! from Dashboard Module</h4>
+            <h4>Hello World! from Dashboard Module</h4>
+            {{ flashSession.output() }}
 		    {% if session.get('auth') != null %}
 		    <p>Selamat Datang, <span class="h4">{{ session.get('auth')['username'] }}</span></p>
 		    <form action="{{url('/logout')}}" method="post">
 		    	<button type="submit" class="btn btn-primary">Logout</button>
 		    </form>
-		    {% endif %}
-		    {% if error is defined %}
-		    <p style="color: red">{{error}}</p>
 		    {% endif %}
 		    {% if session.has('auth') == false %}
 		    <form action="{{url('/login')}}" method="post">
