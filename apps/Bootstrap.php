@@ -3,6 +3,10 @@
 use Phalcon\Mvc\Application;
 use Phalcon\Debug;
 use Phalcon\DI\FactoryDefault;
+		use Phalcon\Events\Event;
+		use Phalcon\Events\Manager as EventsManager;
+		use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
+
 
 class Bootstrap extends Application
 {

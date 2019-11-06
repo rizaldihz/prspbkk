@@ -114,15 +114,80 @@ $di->set(
         return $flash;
     }
 );
+// Dipakai jika menggunakan Cara 2
+use MyApp\Listeners\Listener as Listener;
+
+
+
+use Phalcon\Events\Event;
+use Phalcon\Events\Manager as EventsManager;
+use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 
 $di['db'] = function () use ($config) {
-
-    $dbAdapter = $config->database->adapter;
-
-    return new $dbAdapter([
+    $eventsManager = new EventsManager();
+    // Cara 1
+    $eventsManager->attach(
+        'db:beforeQuery',
+        function (Event $event, $connection) {
+            echo 'beforeQuery : ' . $connection->getSQLStatement() . '<br>';
+        }
+    );
+    $eventsManager->attach(
+        'db:afterQuery',
+        function (Event $event, $connection) {
+            echo 'afterQuery : ' . $connection->getSQLStatement() . '<br>';
+        }
+    );
+    $dbAdapter = new \Phalcon\Db\Adapter\Pdo\Mysql([
         "host" => $config->database->host,
         "username" => $config->database->username,
         "password" => $config->database->password,
         "dbname" => $config->database->dbname
     ]);
+
+    $dbAdapter->setEventsManager($eventsManager);
+    return $dbAdapter;
 };
+
+
+    // // Cara 2
+    // $eventsManager->attach(
+    //     'db',
+    //     new Listener()
+    // );
+        $eventsManager = new EventsManager();
+
+        $eventsManager->collectResponses(true);
+
+        $eventsManager->attach(
+            'custom:pertama',
+            function () {
+                return 'Dari Event Manager Pertama\n';
+            }
+        );
+
+        $eventsManager->attach(
+            'custom:pertama',
+            function () {
+                return 'Dari Event Manager Kedua\n';
+            }
+        );
+
+        $eventsManager->fire('custom:pertama', null);
+
+        // $eventsManager->fire('custom:pertama', null);
+
+        print_r($eventsManager->getResponses());
+
+
+
+// use Phalcon\Events\Exception;
+
+// try {
+
+//     $eventsManager = new EventsManager();
+
+//     $eventsManager->attach('custom:custom', true);
+// } catch (Exception $ex) {
+//     echo $ex->getMessage();
+// }
