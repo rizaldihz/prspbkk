@@ -14,7 +14,11 @@ $di['config'] = function() use ($config) {
 };
 
 $di->setShared('session', function() {
-    $session = new Session();
+    $session = new Session(
+        [
+            'uniqueId' => rand(0,1000),
+        ]
+    );
 	$session->start();
 
 	return $session;

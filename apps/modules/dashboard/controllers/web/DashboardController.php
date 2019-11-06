@@ -14,11 +14,12 @@ class DashboardController extends Controller
     public function beforeExecuteRoute(Dispatcher $dis)
     {
         // var_dump();die();
-        if(!$this->session->has('auth') && $dis->getactionName()!='index') $this->response->redirect('/');
+        // if(!$this->session->has('auth') && $dis->getactionName()!='index') $this->response->redirect('/');
     }
 
     public function indexAction()
     {
+        var_dump($this->session);die();
         $users = Users::find();
 
         $this->view->users = $users;

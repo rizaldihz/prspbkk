@@ -1,9 +1,25 @@
 <?php
 
+use Phalcon\Session\Adapter\Files as Session;
+
 $di['router'] = function() use ($defaultModule, $modules, $di, $config) {
 
 	$router = new \Phalcon\Mvc\Router(false);
 	$router->clear();
+
+	// $eventsManager = new \Phalcon\Events\Manager();
+
+	// $eventsManager->attach(
+	//     'router:beforeCheckRoute',
+	//     function (\Phalcon\Events\Event $event, $connection) {
+	//     	$session = new Session();
+	// 		$session->start();
+	//         if(!$session->has('auth')) (new \Phalcon\Http\Response())->redirect('/');
+	//     }
+	// );
+
+
+	// $router->setEventsManager($eventsManager);
 
 	/**
 	 * Default Routing
