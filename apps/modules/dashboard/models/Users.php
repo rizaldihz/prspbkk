@@ -44,4 +44,9 @@ class Users extends Model
         $log->save();
     }
 
+    public function afterFetch()
+    {
+        $this->email = str_replace('@', '-at-', $this->email);
+    }
+
 }

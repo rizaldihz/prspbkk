@@ -155,29 +155,27 @@ $di['db'] = function () use ($config) {
     //     'db',
     //     new Listener()
     // );
-        // $eventsManager = new EventsManager();
+        $eventsManager = new EventsManager();
 
-        // $eventsManager->collectResponses(true);
+        $eventsManager->collectResponses(true);
 
-        // $eventsManager->attach(
-        //     'custom:pertama',
-        //     function (Event $event, $component, $data) {
-        //         return 'Dari Event Manager Custom ' . $data . ' <br>' ;
-        //     }
-        // );
+        $eventsManager->attach(
+            'custom:pertama',
+            function (Event $event, $component, $data) {
+                return 'Dari Event Manager Custom ' . $data . ' <br>' ;
+            }
+        );
 
-        // $eventsManager->attach(
-        //     'custom:pertama',
-        //     function () {
-        //         return 'Dari Event Manager Custom Tanpa Data' . '<br>';
-        //     }
-        // );
+        $eventsManager->attach(
+            'custom:pertama',
+            function () {
+                return 'Dari Event Manager Custom Tanpa Data' . '<br>';
+            }
+        );
 
-        // $eventsManager->fire('custom:pertama', $this, 'Dengan Data');
+        $eventsManager->fire('custom:pertama', $this, 'Dengan Data');
 
-        // // $eventsManager->fire('custom:pertama', null);
-
-        // print_r($eventsManager->getResponses());
+        print_r($eventsManager->getResponses());
 
 
 
