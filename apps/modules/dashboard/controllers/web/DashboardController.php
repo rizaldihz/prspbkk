@@ -11,47 +11,20 @@ use Phalcon\Events\Manager as EventsManager;
 class DashboardController extends Controller
 {
 
-    public function beforeExecuteRoute(Dispatcher $dis)
-    {
-        // var_dump();die();
-        // if(!$this->session->has('auth') && $dis->getactionName()!='index') $this->response->redirect('/');
-    }
+    // public function beforeExecuteRoute(Dispatcher $dis)
+    // {
+    //     // var_dump();die();
+    //     // if(!$this->session->has('auth') && $dis->getactionName()!='index') $this->response->redirect('/');
+    // }
 
     public function indexAction()
     {
-        // $eventsManager = new EventsManager();
+        $users = Users::find();
 
-        // $eventsManager->collectResponses(true);
+        $this->view->users = $users;
+        // $this->db->query("SELECT * FROM logs");
 
-        // $eventsManager->attach(
-        //     'custom:pertama',
-        //     function () {
-        //         return 'Dari Event Manager Pertama\n';
-        //     }
-        // );
-
-        // $eventsManager->attach(
-        //     'custom:kedua',
-        //     function () {
-        //         return 'Dari Event Manager Kedua\n';
-        //     }
-        // );
-
-        // $eventsManager->fire('custom:pertama', null);
-
-        // $eventsManager->fire('custom:kedua', null);
-
-        // print_r($eventsManager->getResponses());
-
-        // var_dump($this->session);die();
-        // $users = Users::find();
-
-        // $this->view->users = $users;
-
-        // var_dump($this->db->query("SELECT * FROM users"));die();
-        $this->db->query("SELECT * FROM log");
-
-        // $this->view->pick('dashboard/index');
+        $this->view->pick('dashboard/index');
     }
 
     public function registerAction()
@@ -84,6 +57,7 @@ class DashboardController extends Controller
             if($user->password == $pass){
                 $this->session->set('auth',['username' => $user->username]);
                 $this->flashSession->success('Anda telah login');
+                // var_dump("masuk");die();
             }
             else{
                 $this->flashSession->error('Password anda salah');

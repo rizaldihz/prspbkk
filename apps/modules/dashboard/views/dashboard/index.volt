@@ -9,17 +9,23 @@
         <div class="text-center">
             <h4>Hello World! from Dashboard Module</h4>
             {{ flashSession.output() }}
-		    {% if session.get('auth') != null %}
+		    {% if session.has('auth')%}
 		    <p>Selamat Datang, <span class="h4">{{ session.get('auth')['username'] }}</span></p>
 		    <form action="{{url('/logout')}}" method="post">
 		    	<button type="submit" class="btn btn-primary">Logout</button>
 		    </form>
 		    {% endif %}
 		    {% if session.has('auth') == false %}
-		    <form action="{{url('/login')}}" method="post">
-		    	<input type="email" name="em">
-		    	<input type="password" name="pw">
-		    	<input type="submit">
+            <form action="{{url('/login')}}" method="post">
+                <div class="row">
+                    <label for="email" class="col-md-4 text-right">Email</label>
+                    <input type="email" name="em" class="col-md-4 form-control">
+                </div>
+                <div class="row">
+                    <label for="password" class="col-md-4 text-right">Password</label>
+                    <input type="password" name="pw" class="col-md-4 form-control">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
 		    </form>
 		    {% endif %}
 		    <br>
